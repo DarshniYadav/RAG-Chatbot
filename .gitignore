@@ -1,0 +1,51 @@
+# Python virtual environments
+.venv/
+.venv-1/
+.venv312/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Node modules and build
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Chroma database caches and artifacts
+chroma_db/
+chroma_db_legacy/
+chroma_db_fresh/
+chroma_db.bak
+*.db
+
+# Upload directories
+uploads/
+uploads_dir/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Miscellaneous
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+chat_page_dump.html
