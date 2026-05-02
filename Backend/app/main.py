@@ -16,7 +16,11 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
-    await init_db()
+    try:
+        await init_db()
+    except Exception as e:
+        print(f"Warning: Failed to initialize database: {e}")
+        print("Server starting without database. Please verify MongoDB credentials in .env file.")
 
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(chat.router, prefix="/api/v1")
