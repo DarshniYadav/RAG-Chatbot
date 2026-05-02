@@ -1,0 +1,1 @@
+web: gunicorn --chdir Backend app.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
