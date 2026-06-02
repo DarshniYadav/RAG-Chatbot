@@ -56,9 +56,9 @@ export default function RegisterPage() {
 					title="Create Account"
 					subtitle="Start chatting with your documents"
 					fields={[
-						{ name: "name", type: "text", placeholder: "Name" },
-						{ name: "email", type: "email", placeholder: "Email" },
-						{ name: "password", type: "password", placeholder: "Password" },
+						{ name: "name", type: "text", placeholder: "Name", autoComplete: "off" },
+						{ name: "email", type: "email", placeholder: "Email", autoComplete: "off" },
+						{ name: "password", type: "password", placeholder: "Password", autoComplete: "new-password" },
 					]}
 					values={{ name, email, password }}
 					onChange={(field, value) => {

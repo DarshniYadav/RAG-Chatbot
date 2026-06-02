@@ -11,7 +11,14 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @router.post("/register")
 async def register(data: UserCreate):
-    await register_user(data.email, data.password)
+    try:
+        await register_user(data.email, data.password)
+    except HTTPException:
+        # propagate HTTP errors from service (e.g., duplicate email)
+        raise
+    except Exception as exc:
+        # Likely a DB/connectivity issue — return 503 so frontend can show helpful message
+        raise HTTPException(status_code=503, detail=f"Registration failed: {exc}")
     return {"msg": "User created"}
 
 

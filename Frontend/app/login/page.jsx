@@ -37,8 +37,8 @@ export default function LoginPage() {
 					title="Welcome Back"
 					subtitle="Sign in to your RAG workspace"
 					fields={[
-						{ name: "email", type: "email", placeholder: "Email" },
-						{ name: "password", type: "password", placeholder: "Password" },
+						{ name: "email", type: "email", placeholder: "Email", autoComplete: "email" },
+						{ name: "password", type: "password", placeholder: "Password", autoComplete: "current-password" },
 					]}
 					values={{ email, password }}
 					onChange={(name, value) => {

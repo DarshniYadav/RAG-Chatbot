@@ -1,7 +1,8 @@
 export default function Input(props) {
+	const { style, ...rest } = props;
 	return (
 		<input
-			{...props}
+			{...rest}
 			style={{
 				width: "100%",
 				borderRadius: 10,
@@ -10,6 +11,7 @@ export default function Input(props) {
 				color: "var(--text)",
 				padding: "11px 12px",
 				outline: "none",
+				...style,
 			}}
 		/>
 	);
