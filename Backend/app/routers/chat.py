@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
 from app.schemas.chat import ChatRequest
-from app.services.chat_service import get_or_create_conversation, get_chat_history, rag_service
-from app.models.message import Message
+from app.services.chat_service import get_or_create_conversation, get_chat_history, save_chat_message, rag_service
 from app.utils.dependencies import get_current_user
 from app.models.user import User
 import json
@@ -35,8 +34,7 @@ async def chat_stream(
     history = await get_chat_history(conversation)
 
     # Save user message
-    user_msg = Message(conversation=conversation, role="user", content=payload.message)
-    await user_msg.insert()
+    await save_chat_message(conversation, "user", payload.message)
 
     accept_header = request.headers.get("accept", "").lower()
 
@@ -56,8 +54,7 @@ async def chat_stream(
             full_response = FALLBACK_ASSISTANT_MESSAGE
             fallback_reason = _fallback_reason(exc)
 
-        assistant_msg = Message(conversation=conversation, role="assistant", content=full_response)
-        await assistant_msg.insert()
+        await save_chat_message(conversation, "assistant", full_response)
         return {
             "conversation_id": str(conversation.id),
             "message": full_response,
@@ -84,8 +81,7 @@ async def chat_stream(
             yield f"data: {json.dumps({'token': full_response, 'fallback': True, 'fallback_reason': fallback_reason})}\n\n"
 
         # Save assistant message after streaming completes
-        assistant_msg = Message(conversation=conversation, role="assistant", content=full_response)
-        await assistant_msg.insert()
+    await save_chat_message(conversation, "assistant", full_response)
 
     return StreamingResponse(
         generate(),
