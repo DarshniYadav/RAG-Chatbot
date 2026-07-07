@@ -5,6 +5,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
     mongo_uri: str
+    mongo_db_name: str = "rag"
     gemini_api_key: str
     jwt_secret_key: str
     jwt_algorithm: str = "HS256"

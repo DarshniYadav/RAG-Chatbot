@@ -12,8 +12,9 @@ client: AsyncIOMotorClient = None
 async def init_db():
     global client
     client = AsyncIOMotorClient(settings.mongo_uri, tlsCAFile=certifi.where())
+    database = client[settings.mongo_db_name]
     await init_beanie(
-        database=client.get_default_database(),
+        database=database,
         document_models=[User, Conversation, Message]
     )
 
